@@ -1,0 +1,39 @@
+{
+    "name": "silalahi/wilayah-php",
+    "description": "PHP wrapper for wilayah.id API - Indonesian administrative regions data (provinces, regencies, districts, villages)",
+    "keywords": ["wilayah", "indonesia", "api", "provinces", "regencies", "districts", "villages", "administrative"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jogi Silalahi",
+            "email": "silalahi.jogi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5 || ^10.0",
+        "phpstan/phpstan": "^1.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Silalahi\\Wilayah\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Silalahi\\Wilayah\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "test-filter": "phpunit --filter"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
