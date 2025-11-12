@@ -8,17 +8,17 @@ use Silalahi\Wilayah\Exceptions\WilayahException;
 
 class ClientTest extends TestCase
 {
-    private Client $client;
+    private Client $wilayah;
 
     protected function setUp(): void
     {
-        $this->client = new Client();
+        $this->wilayah = new Client();
     }
 
     // Province Tests
     public function testGetAllProvinces(): void
     {
-        $result = $this->client->provinces()->all();
+        $result = $this->wilayah->provinces()->all();
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('data', $result);
@@ -33,7 +33,7 @@ class ClientTest extends TestCase
 
     public function testFindProvinceByCode(): void
     {
-        $result = $this->client->provinces()->find('31');
+        $result = $this->wilayah->provinces()->find('31');
 
         $this->assertIsArray($result);
         $this->assertEquals('31', $result['code']);
@@ -42,7 +42,7 @@ class ClientTest extends TestCase
 
     public function testFindProvinceByName(): void
     {
-        $result = $this->client->provinces()->findByName('Jakarta');
+        $result = $this->wilayah->provinces()->findByName('Jakarta');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('code', $result);
@@ -51,7 +51,7 @@ class ClientTest extends TestCase
 
     public function testSearchProvinces(): void
     {
-        $results = $this->client->provinces()->search('jawa');
+        $results = $this->wilayah->provinces()->search('jawa');
 
         $this->assertIsArray($results);
         $this->assertNotEmpty($results);
@@ -64,7 +64,7 @@ class ClientTest extends TestCase
     // Regency Tests
     public function testGetRegenciesByProvince(): void
     {
-        $result = $this->client->regencies()->byProvince('31');
+        $result = $this->wilayah->regencies()->byProvince('31');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('data', $result);
@@ -73,7 +73,7 @@ class ClientTest extends TestCase
 
     public function testFindRegencyByCode(): void
     {
-        $result = $this->client->regencies()->find('31', '31.74');
+        $result = $this->wilayah->regencies()->find('31', '31.74');
 
         $this->assertIsArray($result);
         $this->assertEquals('31.74', $result['code']);
@@ -81,7 +81,7 @@ class ClientTest extends TestCase
 
     public function testFindRegencyByName(): void
     {
-        $result = $this->client->regencies()->findByName('31', 'Jakarta Selatan');
+        $result = $this->wilayah->regencies()->findByName('31', 'Jakarta Selatan');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('code', $result);
@@ -90,7 +90,7 @@ class ClientTest extends TestCase
 
     public function testFindRegencyByNameGlobal(): void
     {
-        $result = $this->client->regencies()->findByNameGlobal('Jakarta Selatan');
+        $result = $this->wilayah->regencies()->findByNameGlobal('Jakarta Selatan');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('code', $result);
@@ -98,7 +98,7 @@ class ClientTest extends TestCase
 
     public function testSearchRegencies(): void
     {
-        $results = $this->client->regencies()->search('31', 'jakarta');
+        $results = $this->wilayah->regencies()->search('31', 'jakarta');
 
         $this->assertIsArray($results);
     }
@@ -106,7 +106,7 @@ class ClientTest extends TestCase
     // District Tests
     public function testGetDistrictsByRegency(): void
     {
-        $result = $this->client->districts()->byRegency('31.74');
+        $result = $this->wilayah->districts()->byRegency('31.74');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('data', $result);
@@ -115,7 +115,7 @@ class ClientTest extends TestCase
 
     public function testFindDistrictByCode(): void
     {
-        $result = $this->client->districts()->find('31.74', '31.74.09');
+        $result = $this->wilayah->districts()->find('31.74', '31.74.09');
 
         $this->assertIsArray($result);
         $this->assertEquals('31.74.09', $result['code']);
@@ -123,7 +123,7 @@ class ClientTest extends TestCase
 
     public function testFindDistrictByName(): void
     {
-        $result = $this->client->districts()->findByName('31.74', 'Jagakarsa');
+        $result = $this->wilayah->districts()->findByName('31.74', 'Jagakarsa');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('code', $result);
@@ -132,7 +132,7 @@ class ClientTest extends TestCase
 
     public function testSearchDistricts(): void
     {
-        $results = $this->client->districts()->search('31.74', 'a');
+        $results = $this->wilayah->districts()->search('31.74', 'a');
 
         $this->assertIsArray($results);
     }
@@ -140,7 +140,7 @@ class ClientTest extends TestCase
     // Village Tests
     public function testGetVillagesByDistrict(): void
     {
-        $result = $this->client->villages()->byDistrict('31.74.09');
+        $result = $this->wilayah->villages()->byDistrict('31.74.09');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('data', $result);
@@ -149,11 +149,11 @@ class ClientTest extends TestCase
 
     public function testFindVillageByName(): void
     {
-        $villages = $this->client->villages()->byDistrict('31.74.09');
+        $villages = $this->wilayah->villages()->byDistrict('31.74.09');
 
         if (!empty($villages['data'])) {
             $firstVillage = $villages['data'][0];
-            $result = $this->client->villages()->findByName('31.74.09', $firstVillage['name']);
+            $result = $this->wilayah->villages()->findByName('31.74.09', $firstVillage['name']);
 
             $this->assertIsArray($result);
             $this->assertEquals($firstVillage['code'], $result['code']);
@@ -162,7 +162,7 @@ class ClientTest extends TestCase
 
     public function testSearchVillages(): void
     {
-        $results = $this->client->villages()->search('31.74.09', 'a');
+        $results = $this->wilayah->villages()->search('31.74.09', 'a');
 
         $this->assertIsArray($results);
     }
@@ -170,24 +170,24 @@ class ClientTest extends TestCase
     // General Tests
     public function testSetTimeout(): void
     {
-        $client = $this->client->setTimeout(60);
+        $wilayah = $this->wilayah->setTimeout(60);
 
-        $this->assertInstanceOf(Client::class, $client);
-        $this->assertEquals(60, $client->getTimeout());
+        $this->assertInstanceOf(Client::class, $wilayah);
+        $this->assertEquals(60, $wilayah->getTimeout());
     }
 
     public function testInvalidProvinceCode(): void
     {
         $this->expectException(WilayahException::class);
 
-        $this->client->regencies()->byProvince('999999');
+        $this->wilayah->regencies()->byProvince('999999');
     }
 
     public function testCaseInsensitiveSearch(): void
     {
-        $lowercase = $this->client->provinces()->findByName('jakarta');
-        $uppercase = $this->client->provinces()->findByName('JAKARTA');
-        $mixed = $this->client->provinces()->findByName('JaKaRtA');
+        $lowercase = $this->wilayah->provinces()->findByName('jakarta');
+        $uppercase = $this->wilayah->provinces()->findByName('JAKARTA');
+        $mixed = $this->wilayah->provinces()->findByName('JaKaRtA');
 
         $this->assertEquals($lowercase, $uppercase);
         $this->assertEquals($lowercase, $mixed);
@@ -195,7 +195,7 @@ class ClientTest extends TestCase
 
     public function testNotFoundReturnsNull(): void
     {
-        $result = $this->client->provinces()->findByName('NonExistentProvince123');
+        $result = $this->wilayah->provinces()->findByName('NonExistentProvince123');
 
         $this->assertNull($result);
     }
@@ -204,22 +204,22 @@ class ClientTest extends TestCase
     {
         $this->assertInstanceOf(
             \Silalahi\Wilayah\Resources\Province::class,
-            $this->client->provinces()
+            $this->wilayah->provinces()
         );
 
         $this->assertInstanceOf(
             \Silalahi\Wilayah\Resources\Regency::class,
-            $this->client->regencies()
+            $this->wilayah->regencies()
         );
 
         $this->assertInstanceOf(
             \Silalahi\Wilayah\Resources\District::class,
-            $this->client->districts()
+            $this->wilayah->districts()
         );
 
         $this->assertInstanceOf(
             \Silalahi\Wilayah\Resources\Village::class,
-            $this->client->villages()
+            $this->wilayah->villages()
         );
     }
 }

@@ -34,23 +34,23 @@ use Silalahi\Wilayah\Client;
 use Silalahi\Wilayah\Exceptions\WilayahException;
 
 // Create client instance
-$client = new Client();
+$wilayah = new Client();
 
 try {
     // Get all provinces
-    $provinces = $client->provinces()->all();
+    $provinces = $wilayah->provinces()->all();
     print_r($provinces);
     
     // Get regencies from DKI Jakarta (code: 31)
-    $regencies = $client->regencies()->byProvince('31');
+    $regencies = $wilayah->regencies()->byProvince('31');
     print_r($regencies);
     
     // Get districts from Jakarta Selatan (code: 31.74)
-    $districts = $client->districts()->byRegency('31.74');
+    $districts = $wilayah->districts()->byRegency('31.74');
     print_r($districts);
     
     // Get villages from Jagakarsa (code: 31.74.09)
-    $villages = $client->villages()->byDistrict('31.74.09');
+    $villages = $wilayah->villages()->byDistrict('31.74.09');
     print_r($villages);
     
 } catch (WilayahException $e) {
@@ -80,87 +80,87 @@ All methods return an array with the following structure:
 ### Working with Provinces
 ```php
 // Get all provinces
-$provinces = $client->provinces()->all();
+$provinces = $wilayah->provinces()->all();
 
 // Find province by code
-$province = $client->provinces()->find('31');
+$province = $wilayah->provinces()->find('31');
 
 // Find province by name
-$province = $client->provinces()->findByName('Jakarta');
+$province = $wilayah->provinces()->findByName('Jakarta');
 // Returns: ['code' => '31', 'name' => 'DKI Jakarta']
 
 // Search provinces (returns multiple results)
-$provinces = $client->provinces()->search('jawa');
+$provinces = $wilayah->provinces()->search('jawa');
 // Returns all provinces containing "jawa" in their name
 ```
 
 ### Working with Regencies
 ```php
 // Get regencies in a province
-$regencies = $client->regencies()->byProvince('31');
+$regencies = $wilayah->regencies()->byProvince('31');
 
 // Find regency by code
-$regency = $client->regencies()->find('31', '31.74');
+$regency = $wilayah->regencies()->find('31', '31.74');
 
 // Find regency by name within a province
-$regency = $client->regencies()->findByName('31', 'Jakarta Selatan');
+$regency = $wilayah->regencies()->findByName('31', 'Jakarta Selatan');
 
 // Find regency by name across all provinces (slower)
-$regency = $client->regencies()->findByNameGlobal('Bandung');
+$regency = $wilayah->regencies()->findByNameGlobal('Bandung');
 
 // Search regencies within a province
-$regencies = $client->regencies()->search('31', 'jakarta');
+$regencies = $wilayah->regencies()->search('31', 'jakarta');
 ```
 
 ### Working with Districts
 ```php
 // Get districts in a regency
-$districts = $client->districts()->byRegency('31.74');
+$districts = $wilayah->districts()->byRegency('31.74');
 
 // Find district by code
-$district = $client->districts()->find('31.74', '31.74.09');
+$district = $wilayah->districts()->find('31.74', '31.74.09');
 
 // Find district by name
-$district = $client->districts()->findByName('31.74', 'Jagakarsa');
+$district = $wilayah->districts()->findByName('31.74', 'Jagakarsa');
 
 // Search districts within a regency
-$districts = $client->districts()->search('31.74', 'cilandak');
+$districts = $wilayah->districts()->search('31.74', 'cilandak');
 ```
 
 ### Working with Villages
 ```php
 // Get villages in a district
-$villages = $client->villages()->byDistrict('31.74.09');
+$villages = $wilayah->villages()->byDistrict('31.74.09');
 
 // Find village by code
-$village = $client->villages()->find('31.74.09', '31.74.09.1001');
+$village = $wilayah->villages()->find('31.74.09', '31.74.09.1001');
 
 // Find village by name
-$village = $client->villages()->findByName('31.74.09', 'Cipedak');
+$village = $wilayah->villages()->findByName('31.74.09', 'Cipedak');
 
 // Search villages within a district
-$villages = $client->villages()->search('31.74.09', 'raya');
+$villages = $wilayah->villages()->search('31.74.09', 'raya');
 ```
 
 ### Fluent Chaining Example
 ```php
 // Find a complete address hierarchy
-$client = new Client();
+$wilayah = new Client();
 
 // Start from province
-$province = $client->provinces()->findByName('Jakarta');
+$province = $wilayah->provinces()->findByName('Jakarta');
 
 if ($province) {
     // Get regency within that province
-    $regency = $client->regencies()->findByName($province['code'], 'Jakarta Selatan');
+    $regency = $wilayah->regencies()->findByName($province['code'], 'Jakarta Selatan');
     
     if ($regency) {
         // Get district within that regency
-        $district = $client->districts()->findByName($regency['code'], 'Jagakarsa');
+        $district = $wilayah->districts()->findByName($regency['code'], 'Jagakarsa');
         
         if ($district) {
             // Get all villages in that district
-            $villages = $client->villages()->byDistrict($district['code']);
+            $villages = $wilayah->villages()->byDistrict($district['code']);
         }
     }
 }
@@ -169,10 +169,10 @@ if ($province) {
 ### Setting Timeout
 ```php
 // Set timeout in constructor (default is 30 seconds)
-$client = new Client(60);
+$wilayah = new Client(60);
 
 // Or use setter method
-$client->setTimeout(60);
+$wilayah->setTimeout(60);
 ```
 
 ## API Reference
@@ -216,7 +216,7 @@ The library throws `WilayahException` when an error occurs. Always wrap your API
 use Silalahi\Wilayah\Exceptions\WilayahException;
 
 try {
-    $provinces = $client->provinces()->all();
+    $provinces = $wilayah->provinces()->all();
 } catch (WilayahException $e) {
     // Handle the error
     error_log($e->getMessage());
