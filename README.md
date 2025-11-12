@@ -1,5 +1,8 @@
 # Wilayah PHP Client
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/silalahi/wilayah-php.svg?style=flat-square)](https://packagist.org/packages/silalahi/wilayah-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/silalahi/wilayah-php.svg?style=flat-square)](https://packagist.org/packages/silalahi/wilayah-php)
+
 A PHP wrapper for the [wilayah.id](https://wilayah.id/) API, providing easy access to Indonesian administrative regions data including provinces, regencies/cities, districts, and villages.
 
 ## Features
