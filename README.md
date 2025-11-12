@@ -223,20 +223,6 @@ try {
 }
 ```
 
-## Directory Structure
-```
-src/
-├── Client.php                 # Main client class
-├── Exceptions/
-│   └── WilayahException.php   # Custom exception
-└── Resources/
-    ├── BaseResource.php       # Base resource class
-    ├── Province.php           # Province resource
-    ├── Regency.php            # Regency resource
-    ├── District.php           # District resource
-    └── Village.php            # Village resource
-```
-
 ## Testing
 ```bash
 composer test
